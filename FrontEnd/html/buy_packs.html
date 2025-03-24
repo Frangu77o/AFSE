@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acquista Pacchetti - AFSE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        <h2 class="text-center mb-4">Acquista Pacchetti</h2>
+        <div class="col text-center">
+            <div class="m-3">
+                <div class="card shadow p-4">
+                    <h4>Pacchetto Base</h4>
+                    <p>1 credito 5 carte</p>
+                    <button class="btn btn-primary" onclick="buyPack('Pacchetto Base', 1)">Acquista</button>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card shadow p-4">
+                    <h4>Pacchetto Avanzato</h4>
+                    <p>2 crediti 12 carte</p>
+                    <button class="btn btn-primary" onclick="buyPack('Pacchetto Avanzato', 2)">Acquista</button>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card shadow p-4">
+                    <h4>Pacchetto Premium</h4>
+                    <p>3 crediti 20 carte</p>
+                    <button class="btn btn-primary" onclick="buyPack('Pacchetto Premium', 3)">Acquista</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div id="popUpPack" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center" id="modalBody">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 AFSE - Album delle Figurine dei Super Eroi. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../javascript/navbar.js"></script>
+    <script src="../javascript/buyPacks.js"></script>
+</body>
+</html>

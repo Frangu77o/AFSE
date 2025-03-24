@@ -1,0 +1,22 @@
+{
+  "name": "31275a_progettomarvel",
+  "version": "1.0.0",
+  "description": "progetto programmazione web e mobile",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "Francesco Emanuele Franguelli (31275A Matricola)",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

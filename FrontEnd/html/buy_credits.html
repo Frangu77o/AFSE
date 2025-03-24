@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acquista Crediti - AFSE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        <h2 class="text-center mb-4">Acquista Crediti</h2>
+        <div class="col text-center">
+            <div class="m-3">
+                <div class="card shadow p-4">
+                    <h4>Pacchetto Base</h4>
+                    <p>5 Crediti - 5€</p>
+                    <button class="btn btn-primary" onclick="showPaymentPopup('Pacchetto Base', '5€')">Acquista</button>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card shadow p-4">
+                    <h4>Pacchetto Avanzato</h4>
+                    <p>10 Crediti - 9€</p>
+                    <button class="btn btn-primary" onclick="showPaymentPopup('Pacchetto Avanzato', '9€')">Acquista</button>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card shadow p-4">
+                    <h4>Pacchetto Premium</h4>
+                    <p>20 Crediti - 17€</p>
+                    <button class="btn btn-primary" onclick="showPaymentPopup('Pacchetto Premium', '17€')">Acquista</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Payment Popup -->
+    <div id="paymentPopup" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserisci i dati della carta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="packageInfo"></p>
+                    <form id="paymentForm">
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Numero Carta</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardExpiry" class="form-label">Scadenza</label>
+                            <input type="text" class="form-control" id="cardExpiry" placeholder="MM/YY">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardCVC" class="form-label">CVC</label>
+                            <input type="text" class="form-control" id="cardCVC" placeholder="XXX">
+                        </div>
+                        <input type="hidden" id="credits" name="credits" value="0"> 
+                        <p id="paymentFormMessage"></p>
+                        <button type="submit" class="btn btn-success w-100">Paga</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 AFSE - Album delle Figurine dei Super Eroi. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../javascript/navbar.js"></script>
+    <script src="../javascript/buyCredits.js"></script>
+</body>
+</html>
