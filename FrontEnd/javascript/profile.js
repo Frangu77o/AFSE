@@ -59,7 +59,7 @@ function showAlertDeleteAccount() {
         const user = await response.json();
         const { email, username, favoriteSuperhero, birthdate, country } = user;
         document.querySelector('main').innerHTML = `
-            <div class="card p-4 shadow-lg profile-card w-full">
+            <div class="card p-4 shadow-lg profile-card w-full mt-4">
                 <h2 class="text-center mb-4">Il Mio Profilo</h2>
                 <form id="profileForm">
                     <div class="mb-3">
