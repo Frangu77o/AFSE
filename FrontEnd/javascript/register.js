@@ -1,3 +1,6 @@
+import "./components/navbar.js";
+import { showModal } from "./components/modal.js";
+
 /**
  * Aggiunge un listener per l'evento di submit del form di registrazione.
  * Quando il form viene inviato, viene prevenuto il comportamento predefinito
@@ -18,11 +21,11 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
 
     // controlli sui dati inseriti
     if(!isPasswordValid(password)) {
-        alert('La password deve essere lunga almeno 8 caratteri e contenere almeno una lettera maiuscola, una minuscola e un numero');
+        showModal({title: "Errore", message: 'La password deve essere lunga almeno 8 caratteri e contenere almeno una lettera maiuscola, una minuscola e un numero'});
         return;
     }
     if(confirmPassword !== password) {
-        alert('Le password non corrispondono');
+        showModal({title: "Errore", message: 'Le password non corrispondono'});
         return;
     }
 
@@ -51,15 +54,26 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
             window.location.href = '/';
         } else {
             // Se c'è un errore, mostra un messaggio di errore
-            const json = await response.json();
-            alert(json.error);
+            try {
+                const json = await response.json();
+                if(json.error) {
+                    showModal({title:"Errore", message: json.error});
+                } else {
+                    showModal({title:"Errore", message:'Errore durante la registrazione'});
+                }
+            } catch (error) {
+                console.error('Errore nel parsing della risposta', error);
+                showModal({title:"Errore", message:'Errore durante la registrazione'});
+            }
         }
     } catch (error) {
         console.error('Errore durante la chiamata API:', error);
-        alert('Errore durante la registrazione');
+        showModal({title:"Errore", message:'Errore durante la registrazione'});
     }
 });
 
+
+// Funzione per controllare se la password è valida e sicura
 function isPasswordValid(password) {
     if (password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
         return false;

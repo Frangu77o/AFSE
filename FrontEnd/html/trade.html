@@ -14,23 +14,6 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="bg-dark text-white text-center py-4">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
     <!-- Main Content -->
     <main class="container mt-4">
       <div class="d-flex justify-content-center">
@@ -54,86 +37,100 @@
       </div>
       
       
-        <div class="tab-content mt-3">
-          <div class="tab-pane fade show active" id="friends">
-            <h4>Scambia con un Amico</h4>
-            <form id="tradeForm">
-              <div class="mb-3 d-flex">
-                <input type="text" class="form-control me-2" id="friendEmail" placeholder="Inserisci la mail del tuo amico">
-                <button type="button" class="btn btn-primary" id="searchFriend">
-                  <span class="d-none d-md-inline">Cerca</span>
-                  <span class="d-md-none"><i class="bi bi-search"></i></span>
-                </button>
-              </div>
-              <p id="errorFriendEmail" class="text-danger"></p>
-      
-              <!-- Dropdown multiplo per la figurina dell'utente -->
-              <div class="mb-3 dropdown-multiple">
-                <label for="myCard" class="form-label">Le tue figurine</label>
-                <div class="selected-items" id="selectedMyCard">Seleziona...</div>
-                <ul class="dropdown-menu" id="dropdownMyCard">
-                </ul>
-              </div>
-      
-              <!-- Dropdown multiplo per la figurina desiderata -->
-              <div class="mb-3 dropdown-multiple">
-                <label for="wantedCard" class="form-label">Figurine desiderate</label>
-                <div class="selected-items" id="selectedWantedCard">Seleziona...</div>
-                <ul class="dropdown-menu" id="dropdownWantedCard">
-                </ul>
-              </div>
-      
-              <button type="submit" class="btn btn-success w-100">Invia Richiesta di Scambio</button>
-            </form>
-          </div>
-      
-          <div class="tab-pane fade" id="proposte">
-            <h4>Proposte di scambio</h4>
-            <div class="d-flex justify-content-center">
-              <ul class="nav nav-tabs w-100" role="tablist">
-                <li class="nav-item flex-fill">
-                  <button class="nav-link active w-100 text-center" data-bs-toggle="tab" data-bs-target="#sentTrades" type="button">
-                    Inviati
-                  </button>
-                </li>
-                <li class="nav-item flex-fill">
-                  <button class="nav-link w-100 text-center" data-bs-toggle="tab" data-bs-target="#receivedTrades" type="button">
-                    Ricevuti
-                  </button>
-                </li>
-              </ul>
+      <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="friends">
+          <h4>Scambia con un Amico</h4>
+          <form id="tradeForm">
+            <div class="mb-3 d-flex">
+              <input type="text" class="form-control me-2" id="friendEmail" placeholder="Inserisci la mail del tuo amico">
+              <button type="button" class="btn btn-primary" id="searchFriend">
+                <span class="d-none d-md-inline">Cerca</span>
+                <span class="d-md-none"><i class="bi bi-search"></i></span>
+              </button>
             </div>
-
-            <div class="tab-content mt-3">
-              <div class="tab-pane fade show active" id="sentTrades">
-              </div>
-              <div class="tab-pane fade" id="receivedTrades">
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="vendita">
-            <h4>Vendi Figurine</h4>
-            <p>Qui puoi vendere le tue figurine per crediti</p>
-          
-            <!-- Dropdown multiplo per la vendita delle figurine -->
+            <p id="errorFriendEmail" class="text-danger"></p>
+    
+            <!-- Dropdown multiplo per la figurina dell'utente -->
             <div class="mb-3 dropdown-multiple">
-              <label for="sellCard" class="form-label">Seleziona le figurine da vendere</label>
-              <div class="selected-items active" id="selectedSellCard">Seleziona...</div>
-              <ul class="dropdown-menu" id="dropdownSellCard">
+              <label for="myCard" class="form-label">Le tue figurine</label>
+              <div class="selected-items" id="selectedMyCard">Seleziona...</div>
+              <ul class="dropdown-menu" style="width: 100% !important;" id="dropdownMyCard">
               </ul>
             </div>
-          
-            <!-- Crediti guadagnati -->
-            <div class="mb-3">
-              <label class="form-label">Crediti totali dalla vendita:</label>
-              <p id="creditCounter" class="fw-bold">0</p>
+    
+            <!-- Dropdown multiplo per la figurina desiderata -->
+            <div class="mb-3 dropdown-multiple">
+              <label for="wantedCard" class="form-label">Figurine desiderate</label>
+              <div class="selected-items" id="selectedWantedCard">Seleziona...</div>
+              <ul class="dropdown-menu" style="width: 100% !important;" id="dropdownWantedCard">
+              </ul>
             </div>
-          
-            <!-- Pulsante Vendi -->
-            <button id="sellButton" class="btn btn-danger w-100">Vendi Figurine</button>
+    
+            <button type="submit" class="btn btn-success w-100">Invia Richiesta di Scambio</button>
+          </form>
+        </div>
+    
+        <div class="tab-pane fade" id="proposte">
+          <h4>Proposte di scambio</h4>
+          <div class="d-flex justify-content-center">
+            <ul class="nav nav-tabs w-100" role="tablist">
+              <li class="nav-item flex-fill">
+                <button class="nav-link active w-100 text-center" data-bs-toggle="tab" data-bs-target="#sentTrades" type="button">
+                  Inviati
+                </button>
+              </li>
+              <li class="nav-item flex-fill">
+                <button class="nav-link w-100 text-center" data-bs-toggle="tab" data-bs-target="#receivedTrades" type="button">
+                  Ricevuti
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="sentTrades">
+            </div>
+            <div class="tab-pane fade" id="receivedTrades">
+            </div>
           </div>
         </div>
+
+        <div class="tab-pane fade" id="vendita">
+          <h4>Vendi Figurine</h4>
+          <p>Qui puoi vendere le tue figurine per crediti</p>
+        
+          <!-- Dropdown multiplo per la vendita delle figurine -->
+          <div class="mb-3 dropdown-multiple">
+            <label for="sellCard" class="form-label">Seleziona le figurine da vendere</label>
+            <div class="selected-items active" id="selectedSellCard">Seleziona...</div>
+            <ul class="dropdown-menu" style="width: 100% !important;" id="dropdownSellCard">
+            </ul>
+          </div>
+        
+          <!-- Crediti guadagnati -->
+          <div class="mb-3">
+            <label class="form-label">Crediti totali dalla vendita:</label>
+            <p id="creditCounter" class="fw-bold">0</p>
+          </div>
+        
+          <!-- Pulsante Vendi -->
+          <button id="sellButton" class="btn btn-danger w-100">Vendi Figurine</button>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div id="alert_pop_up" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                </div>
+            </div>
+        </div>
+    </div>
     </main>
 
     <!-- Footer -->
@@ -146,7 +143,6 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="../javascript/navbar.js"></script>
-    <script src="../javascript/trade.js"></script>
+    <script type="module" src="../javascript/trade.js"></script>
 </body>
 </html>

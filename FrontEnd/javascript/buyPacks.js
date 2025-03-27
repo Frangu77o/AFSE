@@ -1,40 +1,28 @@
-async function buyPack(packName, packId) {
-    // Iserisci il loader
-    const modalBody = document.getElementById('modalBody');
-    modalBody.innerHTML = `
-        <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
-            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                <span class="visually-hidden">Caricamento...</span>
-            </div>
-        </div>
-    `;
-    const titolo = document.getElementById('modalTitle')
-    titolo.innerText = `Acquisto in corso...`;
+import { showModal, modalHTML } from "./components/modal.js";
+import "./components/navbar.js";
 
-    // Mostra il modal
-    const modal = new bootstrap.Modal(document.getElementById('popUpPack'));
-    modal.show();
-
+/*
+ prova a acquistare un pacchetto di carte
+ e aggiornare il modal con le carte ottenute o il messaggio di errore
+*/
+async function buyPack(packId) {
     // Effettua la richiesta per acquistare il pacchetto
     const response = await fetch(`/api/user/buy-superhero-package/${packId}`, {
         method: 'PUT',
         credentials: 'include',
     });
 
-    // Rimuovi il loader e aggiorna il titolo del modal
-    titolo.innerText = `Hai acquistato: ${packName}`;
-
     if (!response.ok) {
         const data = await response.json();
-        titolo.innerText = `Errore`;
+        modalHTML.querySelector(".modal-title").textContent = `Errore`;
         if (data.error === "Crediti insufficienti") {
-            modalBody.innerHTML = `
+            modalHTML.querySelector('.modal-body').innerHTML = `
                 <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
-                    <h3>Non hai abbastanza crediti per acquistare questo pacchetto.</h3>
+                    <h3>Crediti insufficienti per acquistare il pacchetto.</h3>
                 </div>
             `;
         } else {
-            modalBody.innerHTML = `
+            modalHTML.querySelector('.modal-body').innerHTML = `
                 <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
                     <h3>Errore durante l'acquisto del pacchetto.</h3>
                 </div>
@@ -47,7 +35,7 @@ async function buyPack(packName, packId) {
     const cards = await response.json();
 
     // Mostra le carte nel modal
-    modalBody.innerHTML = `
+    modalHTML.querySelector('.modal-body').innerHTML = `
         <div class="d-flex justify-content-center flex-wrap">
             ${cards.map(card => `
                 <div class="card m-2" style="width: 18rem;">
@@ -60,3 +48,27 @@ async function buyPack(packName, packId) {
         </div>
     `;
 }
+
+const loaderHTML = `
+    <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Caricamento...</span>
+        </div>
+    </div>
+`;
+
+// listener per l'acquisto dei pacchetti
+document.getElementById('packBase').addEventListener('click', () => {
+    showModal({title: 'Pacchetto Base', html: loaderHTML});
+    buyPack(1);
+});
+
+document.getElementById('packAvanzato').addEventListener('click', () => {
+    showModal({title: 'Pacchetto Avanzato', html: loaderHTML});
+    buyPack(2);
+});
+
+document.getElementById('packPremium').addEventListener('click', () => {
+    showModal({title: 'Pacchetto Premium', html: loaderHTML});
+    buyPack(3);   
+});

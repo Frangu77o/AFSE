@@ -1,3 +1,10 @@
+import { userPromise } from "./components/navbar.js";
+import { modalHTML, showModal } from './components/modal.js';
+
+/*
+    cancella il profilo dell'utente e lo reindirizza alla home page
+    in caso di errore mostra un messaggio di errore nel modal
+*/
 function deleteProfile() {
     fetch('/api/user', {
         method: 'DELETE',
@@ -6,11 +13,16 @@ function deleteProfile() {
         if (response.ok) {
             window.location.href = "/";
         } else {
-            alert("Errore durante la cancellazione del profilo.");
+            modalHTML.querySelector(".modal-body").innerHTML = "Errore durante la cancellazione del profilo.";
         }
     });
 }
 
+/*
+    aggiorna il profilo dell'utente con i dati inseriti nei campi di input
+    in caso di successo ricarica la pagina per mostrare i nuovi dati,
+    in caso di errore mostra un messaggio di errore nel modal
+*/
 function updateProfile() {
     const username = document.getElementById("edit-username").value;
     const email = document.getElementById("edit-email").value;
@@ -20,7 +32,7 @@ function updateProfile() {
     const password = document.getElementById("edit-password").value;
 
     if (password && (password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password))) {
-        alert('La password deve essere lunga almeno 8 caratteri e contenere almeno una lettera maiuscola, una minuscola e un numero');
+        showModal({title:"Errore Aggiornamento Profilo", message:'La password deve essere lunga almeno 8 caratteri e contenere almeno una lettera maiuscola, una minuscola e un numero'});
         return;
     }
 
@@ -35,28 +47,30 @@ function updateProfile() {
         if (response.ok) {
             window.location.reload();
         } else {
-            var json = await response.json();
-            if(json.error) {
-                alert(json.error);
-            }else {
-                alert("Errore durante l'aggiornamento del profilo.");
-            }
+            try {
+                var json = await response.json();
+                if(json.error) {
+                    showModal({title:"Errore", message: json.error});
+                } else {
+                    showModal({title:"Errore", message:'Errore durante l\'aggiornamento del profilo'});
+                }
+            } catch (error) {
+                showModal({title:"Errore", message:'Errore durante l\'aggiornamento del profilo'});
+            }   
         }
     }).catch(error => {
         console.error('Errore durante la chiamata API:', error);
-        alert('Errore durante l\'aggiornamento del profilo');
+        showModal({title:"Errore", message:'Errore durante l\'aggiornamento del profilo'});
     });
 }
 
-function showAlertDeleteAccount() {
-    var modal = new bootstrap.Modal(document.getElementById('delete_acc_pop'));
-    modal.show();
-}
-
+/*
+    Mostra i dati dell'utente loggato e permette di modificarli o cancellare il profilo.
+    In caso di richiesta fallita mostra un messaggio di errore
+*/
 (async () => {
-    const response = await fetch('/api/user', { credentials: 'include' });
-    if (response.ok) {
-        const user = await response.json();
+    const user = await userPromise;
+    if (user) {
         const { email, username, favoriteSuperhero, birthdate, country } = user;
         document.querySelector('main').innerHTML = `
             <div class="card p-4 shadow-lg profile-card w-full mt-4">
@@ -117,16 +131,21 @@ function showAlertDeleteAccount() {
             form.querySelector("#save-button").style.display = "block";
         });
         // Cancella il profilo
-        document.getElementById("delete-button").addEventListener("click", showAlertDeleteAccount);
+        document.getElementById("delete-button").addEventListener("click", () => {
+            showModal({
+                title: 'Cancella Profilo',
+                html: `
+                    <div>
+                        <p>Sei sicuro di voler cancellare il tuo profilo?</p>
+                        <button type="button" class="btn btn-danger" id="deleteProfile" >Cancella Profilo</button>
+                    </div>
+                `
+            })
+            modalHTML.querySelector('#deleteProfile').addEventListener('click', deleteProfile)
+        });
         // Salva le modifiche al profilo
         document.getElementById("save-button").addEventListener("click", updateProfile);
     } else {
-        if(response.status === 401) {
-            alert("Devi effettuare il login per accedere a questa pagina.");
-            window.location.href = "/html/login.html";
-        } else {
-            const json = await response.json();
-            alert(json.error);
-        }
+        document.querySelector('main').innerHTML = "<h2 class='text-center mt-4'>Errore, assicurati di essere loggato nel tuo account</h2>";
     }
 })()

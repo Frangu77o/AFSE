@@ -1,7 +1,12 @@
+import "./components/navbar.js";
+import { showModal } from "./components/modal.js";
+
 /**
  * Aggiunge un listener per l'evento di submit del form di login.
  * Quando il form viene inviato, viene prevenuto il comportamento predefinito
  * e viene fatta una chiamata POST all'endpoint API per vedere se l'utente esiste e la password corisponde.
+ * In caso di successo, l'utente viene reindirizzato alla pagina di benvenuto.
+ * In caso di errore, viene mostrato un messaggio di errore.
  */
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     // Previene il comportamento predefinito del form (che farebbe un reindirizzamento)
@@ -33,10 +38,16 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         } else {
             // Se c'è un errore, mostra un messaggio di errore
             const json = await response.json();
-            alert(json.error);
+            showModal({
+                title: 'Errore',
+                message: json.error
+            });
         }
     } catch (error) {
         console.error('Errore durante la chiamata API:', error);
-        alert('Errore nel login');
+        showModal({
+            title: 'Errore',
+            message: 'Errore durante il login'
+        });
     }
 });

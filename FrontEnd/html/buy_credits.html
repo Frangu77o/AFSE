@@ -4,27 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acquista Crediti - AFSE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="bg-dark text-white text-center py-4">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
     <!-- Main Content -->
     <main class="container py-5">
         <h2 class="text-center mb-4">Acquista Crediti</h2>
@@ -33,21 +15,21 @@
                 <div class="card shadow p-4">
                     <h4>Pacchetto Base</h4>
                     <p>5 Crediti - 5€</p>
-                    <button class="btn btn-primary" onclick="showPaymentPopup('Pacchetto Base', '5€')">Acquista</button>
+                    <button class="btn btn-primary" id="packBase">Acquista</button>
                 </div>
             </div>
             <div class="m-3">
                 <div class="card shadow p-4">
                     <h4>Pacchetto Avanzato</h4>
                     <p>10 Crediti - 9€</p>
-                    <button class="btn btn-primary" onclick="showPaymentPopup('Pacchetto Avanzato', '9€')">Acquista</button>
+                    <button class="btn btn-primary" id="packAvanzato">Acquista</button>
                 </div>
             </div>
             <div class="m-3">
                 <div class="card shadow p-4">
                     <h4>Pacchetto Premium</h4>
                     <p>20 Crediti - 17€</p>
-                    <button class="btn btn-primary" onclick="showPaymentPopup('Pacchetto Premium', '17€')">Acquista</button>
+                    <button class="btn btn-primary" id="packPremium">Acquista</button>
                 </div>
             </div>
         </div>
@@ -93,7 +75,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../javascript/navbar.js"></script>
-    <script src="../javascript/buyCredits.js"></script>
+    <script type="module" src="../javascript/buyCredits.js"></script>
 </body>
 </html>
