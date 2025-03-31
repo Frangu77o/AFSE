@@ -215,7 +215,7 @@ export const buySuperheroPackage = async (req, res) => {
       var id = superHeros[randomNumber]?.id;
       var name = superHeros[randomNumber]?.name;
       if(img && id && name && !img.includes("image_not_available") && !cardsId.has(id)) {
-        pack.add({ img, id, name });
+        pack.push({ img, id, name });
         cardsId.add(id);
       }
     }
@@ -226,10 +226,10 @@ export const buySuperheroPackage = async (req, res) => {
       var userCard = user.cards.get(card.id);
       if(userCard) {
         userCard.copy += 1;
-        user.cards.set(card.id, userCard);
+        user.cards.set(card.id.toString(), userCard);
       } else {
         card.copy = 1;
-        user.cards.set(card.id, card);
+        user.cards.set(card.id.toString(), card);
       }
     });
     await user.save();

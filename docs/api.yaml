@@ -426,6 +426,28 @@ paths:
         "500":
           description: Errore interno
 
+  /superhero/{id}:
+    get:
+      summary: Ottieni informazioni su un supereroe
+      operationId: getSuperhero
+      tags:
+        - Superhero
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del supereroe da ottenere
+          schema:
+            type: string
+            example: "1009144"
+      responses:
+        "200":
+          description: Dettagli del supereroe restituiti
+        "404":
+          description: Supereroe non trovato
+        "500":
+          description: Errore interno del server
+
 components:
   schemas:
     User:

@@ -8,45 +8,35 @@ const privateKey = process.env.MARVEL_PRIVATE_KEY;
 
 const baseUrl = "https://gateway.marvel.com/v1/public/characters";
 
-var timestamp = new Date().getTime();
 
-var parameters = `ts=${timestamp}&apikey=${publicKey}&hash=${createHash('md5').update(timestamp+privateKey+publicKey).digest('hex')}&`
-
-
-export async function getSuperHero(id) {
+// controller che gestisce la richiesta di un supereroe specifico
+export async function getSuperHero(req, res) {
     try {
+        let { id } = req.params;
         const ts = new Date().getTime();
         const hash = createHash('md5').update(ts+privateKey+publicKey).digest('hex')
-        const response = await fetch(`${baseUrl}?ts=${ts}&hash=${hash}limit=1&offset=${id}`);
+        const response = await fetch(`${baseUrl}/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
         const data = await response.json();
-        if(data.data.results.length > 0) {
-            var img = data.data.results[0].thumbnail.path + "." + data.data.results[0].thumbnail.extension
-            var id = data.data.results[0].id;
-            var name = data.data.results[0].name;
-            if(!img || !id || !name || img.includes("image_not_available")) {
-                return null;
-            }
-            return { img, id, name };
+        if(!data || !data.data || !data.data.results || data.data.results.length === 0) {
+            res.status(404).json({ error: 'Supereroe non trovato' });
+        } else {
+            console.log(`${baseUrl}/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
+            res.status(200).json(data.data.results[0]);
         }
-        return null;
     } catch (error) {
-        return null;
+        res.status(500).json({ error: 'Errore interno' });
     }
 }
 
+
+// Funzione per ottenere tutti i supereroi
 export async function getAllSuperHero() {
     try {
         const ts = new Date().getTime();
         const hash = createHash('md5').update(ts+privateKey+publicKey).digest('hex');
-        const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=10`);
-        if(response.ok) {
-            var data = await response.json();
-            var results = data?.data?.results;
-            if(results) return results;
-            return null;
-        }
-        console.log(response.statusText, await response.text());
-        return null;
+        const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
+        const data = await response.json();
+        return data?.data?.results || null; 
     } catch (error) {
         console.log(error);
         return null;
