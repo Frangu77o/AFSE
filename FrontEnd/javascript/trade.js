@@ -96,8 +96,8 @@ function createTradesHTML(trades, userId) {
     var sentTradesHTML = "";
     for (const trade of trades) {
         var isMY = trade.fromUserId.toString() === userId.toString();
-        var fromUserCardsHTML = trade.fromUserCards.map(cardId => `<li>${cardId}</li>`).join('');
-        var toUserCardsHTML = trade.toUserCards.map(cardId => `<li>${cardId}</li>`).join('');
+        var fromUserCardsHTML = trade.fromUserCards.map(card => `<li>${card.name}</li>`).join('');
+        var toUserCardsHTML = trade.toUserCards.map(card => `<li>${card.name}</li>`).join('');
         var footerHTML = "";
         switch(trade.status) {
             case "pending":
@@ -138,13 +138,13 @@ function createTradesHTML(trades, userId) {
                     <div class="mt-3">
                         <p class="fw-bold text-primary">🔄 Carte Ricevute:</p>
                         <ul class="list-unstyled ps-3">
-                            ${isMY ? fromUserCardsHTML : toUserCardsHTML}
+                            ${isMY ? toUserCardsHTML : fromUserCardsHTML}
                         </ul>
                     </div>
                     <div class="mt-3">
                         <p class="fw-bold text-success">🎴 Carte Date:</p>
                         <ul class="list-unstyled ps-3">
-                            ${isMY ? toUserCardsHTML : fromUserCardsHTML}
+                            ${isMY ? fromUserCardsHTML : toUserCardsHTML}
                         </ul>
                     </div>
                     ${footerHTML}
@@ -233,8 +233,12 @@ document.getElementById("tradeForm").addEventListener("submit", async (e) => {
     e.preventDefault(); // evita l'invio del form html
 
     var friendMail = document.getElementById("friendEmail").value;
-    var myCard = Array.from(document.getElementById("selectedMyCard").querySelectorAll("span")).map(span => span.getAttribute("data-value"));
-    var wantedCard = Array.from(document.getElementById("selectedWantedCard").querySelectorAll("span")).map(span => span.getAttribute("data-value"));
+    var myCard = Array.from(document.getElementById("selectedMyCard").querySelectorAll("span")).map(span => {
+        return { id: span.getAttribute("data-value"), name: span.textContent }; 
+    });
+    var wantedCard = Array.from(document.getElementById("selectedWantedCard").querySelectorAll("span")).map(span => {
+        return { id: span.getAttribute("data-value"), name: span.textContent };
+    });
 
     const response = await fetch("/api/trade", {
         method: "POST",

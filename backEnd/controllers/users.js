@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 
-import { getAllSuperHero } from './marvel.js';
+import { createPack } from './marvel.js';
 
 // Carica le variabili d'ambiente dal file .env
 config({ path: '../../env' });
@@ -199,39 +199,26 @@ export const buySuperheroPackage = async (req, res) => {
       return res.status(400).json({ error: 'Crediti insufficienti' });
     }
 
-    const superHeros = await getAllSuperHero();
+    const pack = await createPack(cardCount);
 
-    if(!superHeros) {
+    if(!pack) {
       return res.status(500).json({ error: 'Errore durante l\'acquisto del pacchetto' });
-    }
-
-    // Genera il pacchetto di supereroi
-    const pack = [];
-    const cardsId = new Set(); // Usa un Set per evitare duplicati
-    while (pack.length < cardCount) {
-      const randomNumber = Math.floor(Math.random() * superHeros.length); // Genera un ID casuale
-
-      var img = superHeros[randomNumber]?.thumbnail?.path + "." + superHeros[randomNumber]?.thumbnail?.extension
-      var id = superHeros[randomNumber]?.id;
-      var name = superHeros[randomNumber]?.name;
-      if(img && id && name && !img.includes("image_not_available") && !cardsId.has(id)) {
-        pack.push({ img, id, name });
-        cardsId.add(id);
-      }
     }
 
     // Aggiorna i crediti e le carte dell'utente
     user.credits -= price;
     pack.forEach(card => {
-      var userCard = user.cards.get(card.id);
+      var id = card.id.toString();
+      var userCard = user.cards.get(id);
       if(userCard) {
         userCard.copy += 1;
-        user.cards.set(card.id.toString(), userCard);
+        user.cards.set(id, userCard);
       } else {
         card.copy = 1;
-        user.cards.set(card.id.toString(), card);
+        user.cards.set(id, card);
       }
     });
+
     await user.save();
 
     // Rispondi con il pacchetto acquistato

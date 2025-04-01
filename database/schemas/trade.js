@@ -1,5 +1,16 @@
 import mongoose from 'mongoose';
 
+const cardTrade = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  }
+});
+
 const tradeSchema = new mongoose.Schema({
   fromUserId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,11 +31,11 @@ const tradeSchema = new mongoose.Schema({
     required: true
   },
   fromUserCards: {
-    type: [Number],
+    type: [cardTrade],
     required: true,
   },
   toUserCards: {
-    type: [Number],
+    type: [cardTrade],
     required: true,
   },
   status: {

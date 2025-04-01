@@ -3,39 +3,43 @@ import Trade from '../../database/schemas/trade.js';
 
 function validateTrade(user1, user1CardsToGive, user2, user2CardsToGive) {
     // controllo eventuali carte duplicate
-    if (user1CardsToGive.length + user2CardsToGive.length !== new Set([...user1CardsToGive, ...user2CardsToGive]).size) {
+    if (user1CardsToGive.length + user2CardsToGive.length !== new Set([...user1CardsToGive.map(card => card.id.toString()), ...user2CardsToGive.map(card => card.id.toString())]).size) {
         return { isValid: false, error: 'Ci sono carte duplicate nello scambio' };
     }
 
     // Controlla che user1 abbia tutte le carte che vuole scambiare
-    for (var cardId of user1CardsToGive) {
-        cardId = cardId.toString()
+    for (var card of user1CardsToGive) {
+        var { id, name } = card;
+        var cardId = id.toString();
         if (!user1.cards.has(cardId) || user1.cards.get(cardId).copy <= 0) {
-            return { isValid: false, error: `Non possiedi la carta con ID ${cardId}` };
+            return { isValid: false, error: `Non possiedi la carta ${name}` };
         }
     }
 
     // Controlla che user2 abbia tutte le carte che vuole scambiare
-    for (var cardId of user2CardsToGive) {
-        cardId = cardId.toString()
+    for (var card of user2CardsToGive) {
+        var { id, name } = card;
+        var cardId = id.toString();
         if (!user2.cards.has(cardId) || user2.cards.get(cardId).copy <= 0) {
-            return { isValid: false, error: `Il tuo amico non possiede la carta con ID ${cardId}` };
+            return { isValid: false, error: `Il tuo amico non possiede la carta ${name}` };
         }
     }
 
     // Controlla che user1 non possieda nessuna delle carte che vuole ricevere
-    for (var cardId of user2CardsToGive) {
-        cardId = cardId.toString()
+    for (var card of user2CardsToGive) {
+        var { id, name } = card;
+        var cardId = id.toString();
         if (user1.cards.has(cardId)) {
-            return { isValid: false, error: `possiedi già la carta con ID ${cardId}` };
+            return { isValid: false, error: `possiedi già la carta ${name}` };
         }
     }
 
     // Controlla che user2 non possieda nessuna delle carte che vuole ricevere
-    for (var cardId of user1CardsToGive) {
-        cardId = cardId.toString()
+    for (var card of user1CardsToGive) {
+        var { id, name } = card;
+        var cardId = id.toString();
         if (user2.cards.has(cardId)) {
-            return { isValid: false, error: `Il tuo amico possiede già la carta con ID ${cardId}` };
+            return { isValid: false, error: `Il tuo amico possiede già la carta ${name}` };
         }
     }
 
@@ -130,8 +134,9 @@ export const acceptTrade = async (req, res) => {
         }
 
         // scambia le carte dei due giocatori
-        trade.fromUserCards.forEach(cardId => {
-            cardId = cardId.toString()
+        trade.fromUserCards.forEach(card => {
+            var { id } = card;
+            var cardId = id.toString();
             var userCard = user.cards.get(cardId);
             if(userCard.copy > 1) {
                 userCard.copy -= 1;
@@ -147,8 +152,9 @@ export const acceptTrade = async (req, res) => {
                 friend.cards.set(cardId, { name: userCard.name, img: userCard.img, copy: 1 } );
             }
         });
-        trade.toUserCards.forEach(cardId => {
-            cardId = cardId.toString()
+        trade.toUserCards.forEach(card => {
+            var { id } = card;
+            var cardId = id.toString();
             var friendCard = friend.cards.get(cardId);
             if(friendCard.copy > 1) {
                 friendCard.copy -= 1;

@@ -305,13 +305,25 @@ paths:
                 myCard:
                   type: array
                   items:
-                    type: string
-                  example: ["101", "102"]
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "101"
+                      name:
+                        type: string
+                        example: "SpiderMan"
                 wantedCard:
                   type: array
                   items:
-                    type: string
-                  example: ["201", "202"]
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "393"
+                      name:
+                        type: string
+                        example: "Ice Man"
       responses:
         "200":
           description: Scambio creato con successo
@@ -525,13 +537,29 @@ components:
         fromUserCards:
           type: array
           items:
-            type: integer
-          example: [101, 102, 103]
+            type: Object
+            properties:
+              id:
+                type: string
+                example: "101"
+              name:
+                type: string
+                example: "SpiderMan"
+          example:
+            [{ id: "101", name: "SpiderMan" }, { id: "403", name: "Agente X" }]
         toUserCards:
           type: array
           items:
-            type: integer
-          example: [201, 202, 203]
+            type: Object
+            properties:
+              id:
+                type: string
+                example: "101"
+              name:
+                type: string
+                example: "SpiderMan"
+            example:
+              [{ id: "201", name: "IronMan" }, { id: "202", name: "Hulk" }]
         status:
           type: string
           enum: ["pending", "accepted", "rejected"]
