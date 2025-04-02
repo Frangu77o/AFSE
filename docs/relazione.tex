@@ -1,5 +1,9 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Per le immagini
+\usepackage{caption} % Per didascalie personalizzate
+\usepackage{subcaption} % Per sottofigure
+\usepackage{float}
 
 \title{Relazione del Progetto di Programmazione Web e Mobile}
 \author{Francesco Franguelli Emanuele}
@@ -74,11 +78,55 @@ Per ottenere informazioni sulle figurine della Marvel, sono utilizzate le API pu
         \item \textbf{Controlli di integrità}: sono stati implementati dei controlli per evitare che gli utenti ricevano figurine già in loro possesso o propongano scambi che includano due o più figurine uguali, garantendo così una gestione più equa e logica degli scambi.
     \end{itemize}
 
-    
-
-
 \section*{Test e Validazione}
+    Di seguito alcuni screenshot del sito web in esecuzione. Le immagini mostrano le varie schermate dell'applicazione, inclusa la home page, la pagina di login, la registrazione, la visualizzazione dei crediti, l'acquisto di pacchetti di figurine, la visualizzazione dell'album e la gestione degli scambi.
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/home.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/login.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/registrazione.png}
+        \end{minipage}
 
+        \vspace{0.3cm} % Spazio tra le righe
+
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/crediti.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/pacchetto.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/album.png}
+        \end{minipage}
+
+        \vspace{0.3cm} % Spazio tra le righe
+
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/scambio.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./content/profilo.png}
+        \end{minipage}
+
+    \end{figure}
 
 \section*{Riferimenti}
 per la realizazione del progetto sono state usate le api fornite da marvel consultabili sul sito: https://developer.marvel.com/

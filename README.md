@@ -2,6 +2,8 @@
 
 Questo progetto è un'applicazione web per la gestione di un album elettronico di figurine di super eroi. Permette agli utenti di gestire il proprio profilo, acquistare pacchetti di figurine, e scambiare figurine con altri utenti.
 
+[Guarda il video](./docs/content/video_prog_web.mp4)
+
 ## Documentazione
 
 La documentazione completa del progetto è disponibile nel file `docs/relazione.pdf`.
