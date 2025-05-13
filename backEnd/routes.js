@@ -4,9 +4,9 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import cookieParser from 'cookie-parser';
 
-import { createUser, loginUser, getUser, updateUser, deleteUser, buyCredits, buySuperheroPackage, getUserCards, sellUserCards } from './controllers/users.js';
+import { createUser, loginUser, getUser, updateUser, deleteUser, buyCredits, buyPackage, getUserCards, sellUserCards } from './controllers/users.js';
 import { newTrade, getTrades, acceptTrade, rejectTrade, cancelTrade } from './controllers/trade.js';
-import { getSuperHero } from './controllers/marvel.js';
+import { getCharacter } from './controllers/harryPotter.js';
 import { authenticate } from './middleware/auth.js';
 
 
@@ -29,7 +29,7 @@ router.post('/user/logout', authenticate, (req, res) => {
     res.status(200).clearCookie('token').send('Logout effettuato');
 });
 router.put('/user/credits', authenticate, buyCredits);
-router.put('/user/buy-superhero-package/:packId', authenticate, buySuperheroPackage);
+router.put('/user/buy-package/:packId', authenticate, buyPackage);
 router.get('/user/cards/:email', getUserCards);
 router.put('/user/sell-cards', authenticate, sellUserCards);
 
@@ -41,8 +41,8 @@ router.put('/trade/:tradeId/accept', authenticate, acceptTrade);
 router.put('/trade/:tradeId/reject', authenticate, rejectTrade);
 router.delete('/trade/:tradeId/cancel', authenticate, cancelTrade);
 
-// Rotte per gestire i supereroi
-router.get('/superhero/:id', getSuperHero);
+// Rotte per gestire i perosnaggi di Harry Potter
+router.get('/character/:id', getCharacter);
 
 // 404 per le root api
 router.use((req, res) => {

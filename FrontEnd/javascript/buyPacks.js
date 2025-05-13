@@ -7,7 +7,7 @@ import "./components/navbar.js";
 */
 async function buyPack(packId) {
     // Effettua la richiesta per acquistare il pacchetto
-    const response = await fetch(`/api/user/buy-superhero-package/${packId}`, {
+    const response = await fetch(`/api/user/buy-package/${packId}`, {
         method: 'PUT',
         credentials: 'include',
     });
@@ -39,7 +39,7 @@ async function buyPack(packId) {
         <div class="d-flex justify-content-center flex-wrap">
             ${cards.map(card => `
                 <div class="card m-2" style="width: 18rem;">
-                    <img src="${card.img}" class="card-img-top" alt="${card.name}">
+                    <img src="${card.image}" class="card-img-top" alt="${card.name}">
                     <div class="card-body">
                         <h5 class="card-title">${card.name}</h5>
                     </div>

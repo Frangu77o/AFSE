@@ -15,7 +15,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm_password').value;
-    const favoriteSuperhero = document.getElementById('hero').value;
+    const favoriteCharacter = document.getElementById('character').value;
     const birthdate = document.getElementById('birthdate').value;
     const country = document.getElementById('country').value;
 
@@ -34,7 +34,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
         email,
         username,
         password,
-        favoriteSuperhero,
+        favoriteCharacter,
         birthdate,
         country
     };

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: API di AFSE
-  description: API per gestire utenti, crediti, pacchetti di supereroi e scambi di carte.
+  title: API di AFHP
+  description: API per gestire utenti, crediti, pacchetti e scambi di carte.
   version: 1.0.0
 
 servers:
@@ -190,10 +190,10 @@ paths:
         "404":
           description: Utente non trovato
 
-  /user/buy-superhero-package/{packId}:
+  /user/buy-package/{packId}:
     put:
-      summary: Acquista un pacchetto di supereroi
-      operationId: buySuperheroPackage
+      summary: Acquista un pacchetto di persoanaggi
+      operationId: buyPackage
       tags:
         - User
       security:
@@ -438,25 +438,25 @@ paths:
         "500":
           description: Errore interno
 
-  /superhero/{id}:
+  /character/{id}:
     get:
-      summary: Ottieni informazioni su un supereroe
-      operationId: getSuperhero
+      summary: Ottieni informazioni su un personaggio di Harry Potter
+      operationId: getCharacter
       tags:
-        - Superhero
+        - character
       parameters:
         - name: id
           in: path
           required: true
-          description: ID del supereroe da ottenere
+          description: ID del persoanaggio da ottenere
           schema:
             type: string
             example: "1009144"
       responses:
         "200":
-          description: Dettagli del supereroe restituiti
+          description: Dettagli del persoanaggio restituiti
         "404":
-          description: Supereroe non trovato
+          description: persoanaggio non trovato
         "500":
           description: Errore interno del server
 

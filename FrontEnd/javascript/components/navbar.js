@@ -37,7 +37,7 @@ export const userPromise = (async () => {
             { href: 'home.html', text: 'Home' },
             { href: 'buy_credits.html', text: 'Acquista Crediti' },
             { href: 'buy_packs.html', text: 'Acquista Pacchetti' },
-            { href: 'heroes.html', text: 'Supereroi' },
+            { href: 'cards.html', text: 'Carte' },
             { href: 'trade.html', text: 'Scambio Figurine' },
         ];
     } else {

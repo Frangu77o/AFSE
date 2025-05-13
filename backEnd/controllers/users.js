@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 
-import { createPack } from './marvel.js';
+import { createPack } from './harryPotter.js';
 
 // Carica le variabili d'ambiente dal file .env
 config({ path: '../../env' });
@@ -11,7 +11,7 @@ config({ path: '../../env' });
 // Creazione di un nuovo utente
 export const createUser = async (req, res) => {
   try {
-    const { email, username, password, favoriteSuperhero, birthdate, country } = req.body;
+    const { email, username, password, favoriteCharacter, birthdate, country } = req.body;
 
     if (!password || typeof password !== "string" || password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
       return res.status(400).json({ error: 'La password deve essere lunga almeno 8 caratteri e contenere almeno una lettera maiuscola, una minuscola e un numero' });
@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
       username, 
       passwordHash, 
       salt,
-      favoriteSuperhero, 
+      favoriteCharacter, 
       birthdate, 
       country 
     });
@@ -97,13 +97,13 @@ export const getUser = async (req, res) => {
 // Aggiornare un utente
 export const updateUser = async (req, res) => {
   try {
-    const { username, email, password, favoriteSuperhero, birthdate, country } = req.body;
+    const { username, email, password, favoriteCharacter, birthdate, country } = req.body;
 
     if (password && (typeof password !== "string" || password.length < 8 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password))) {
       return res.status(400).json({ error: 'La password deve essere lunga almeno 8 caratteri e contenere almeno una lettera maiuscola, una minuscola e un numero' });
     }
     
-    var update = { username, email, favoriteSuperhero, birthdate, country };
+    var update = { username, email, favoriteCharacter, birthdate, country };
 
     if(password) {
       // Genera un salt casuale
@@ -163,8 +163,8 @@ export const buyCredits = async (req, res) => {
   res.status(200).json({ message: 'Crediti aggiornati con successo' });
 }
 
-// Compra un pacchetto di supereroi
-export const buySuperheroPackage = async (req, res) => {
+// Compra un pacchetto
+export const buyPackage = async (req, res) => {
   try {
     let { packId } = req.params;
     packId = parseInt(packId);
@@ -224,7 +224,6 @@ export const buySuperheroPackage = async (req, res) => {
     // Rispondi con il pacchetto acquistato
     res.status(200).json(pack);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: 'Errore durante l\'acquisto del pacchetto' });
   }
 };

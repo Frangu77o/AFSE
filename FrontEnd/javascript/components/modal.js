@@ -35,4 +35,3 @@ export function showModal(options) {
     // mostra il pop-up
     modal.show();
 }
-

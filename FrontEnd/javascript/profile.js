@@ -26,7 +26,7 @@ function deleteProfile() {
 function updateProfile() {
     const username = document.getElementById("edit-username").value;
     const email = document.getElementById("edit-email").value;
-    const favoriteSuperhero = document.getElementById("edit-hero").value;
+    const favoriteCharacter = document.getElementById("edit-character").value;
     const birthdate = document.getElementById("edit-birthdate").value;
     const country = document.getElementById("edit-country").value;
     const password = document.getElementById("edit-password").value;
@@ -41,7 +41,7 @@ function updateProfile() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, email, password, favoriteSuperhero, birthdate, country }),
+        body: JSON.stringify({ username, email, password, favoriteCharacter, birthdate, country }),
         credentials: 'include'
     }).then(async (response) => {
         if (response.ok) {
@@ -71,7 +71,7 @@ function updateProfile() {
 (async () => {
     const user = await userPromise;
     if (user) {
-        const { email, username, favoriteSuperhero, birthdate, country } = user;
+        const { email, username, favoriteCharacter, birthdate, country } = user;
         document.querySelector('main').innerHTML = `
             <div class="card p-4 shadow-lg profile-card w-full mt-4">
                 <h2 class="text-center mb-4">Il Mio Profilo</h2>
@@ -87,9 +87,9 @@ function updateProfile() {
                         <input type="email" class="form-control edit-field" id="edit-email" value="${email}" style="display: none;">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Supereroe Preferito:</label>
-                        <p id="hero">${favoriteSuperhero}</p>
-                        <input type="text" class="form-control edit-field" id="edit-hero" value="${favoriteSuperhero}" style="display: none;">
+                        <label class="form-label fw-bold">Personaggio Preferito:</label>
+                        <p id="character">${favoriteCharacter}</p>
+                        <input type="text" class="form-control edit-field" id="edit-character" value="${favoriteCharacter}" style="display: none;">
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold">Data di Nascita:</label>

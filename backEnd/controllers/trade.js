@@ -2,8 +2,12 @@ import User from '../../database/schemas/user.js';
 import Trade from '../../database/schemas/trade.js';
 
 function validateTrade(user1, user1CardsToGive, user2, user2CardsToGive) {
+    // controlla che lo scambio non sia vuoto
+    if (user1CardsToGive.length === 0 || user2CardsToGive.length === 0) {
+        return { isValid: false, error: 'Devi dare e ricevere almeno una carta in uno scambio' };
+    };
     // controllo eventuali carte duplicate
-    if (user1CardsToGive.length + user2CardsToGive.length !== new Set([...user1CardsToGive.map(card => card.id.toString()), ...user2CardsToGive.map(card => card.id.toString())]).size) {
+    if (user1CardsToGive.length + user2CardsToGive.length !== new Set([...user1CardsToGive.map(card => card.id.toString()), ...user2CardsToGive.map(card => card.id.toString())]).size ) {
         return { isValid: false, error: 'Ci sono carte duplicate nello scambio' };
     }
 
@@ -12,7 +16,7 @@ function validateTrade(user1, user1CardsToGive, user2, user2CardsToGive) {
         var { id, name } = card;
         var cardId = id.toString();
         if (!user1.cards.has(cardId) || user1.cards.get(cardId).copy <= 0) {
-            return { isValid: false, error: `Non possiedi la carta ${name}` };
+            return { isValid: false, error: `Il creatore dello scambio non possiede la carta ${name}` };
         }
     }
 
@@ -21,7 +25,7 @@ function validateTrade(user1, user1CardsToGive, user2, user2CardsToGive) {
         var { id, name } = card;
         var cardId = id.toString();
         if (!user2.cards.has(cardId) || user2.cards.get(cardId).copy <= 0) {
-            return { isValid: false, error: `Il tuo amico non possiede la carta ${name}` };
+            return { isValid: false, error: `Il ricevitore dello scambio non possiede la carta ${name}` };
         }
     }
 
@@ -84,6 +88,7 @@ export const newTrade = async (req, res) => {
         await trade.save();
         res.status(200).json("Scambio creato");
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Errore interno' });
     }
 }
@@ -149,7 +154,7 @@ export const acceptTrade = async (req, res) => {
                 card.copy += 1;
                 friend.cards.set(cardId, card);
             } else {
-                friend.cards.set(cardId, { name: userCard.name, img: userCard.img, copy: 1 } );
+                friend.cards.set(cardId, { name: userCard.name, image: userCard.image, copy: 1 } );
             }
         });
         trade.toUserCards.forEach(card => {
@@ -167,7 +172,7 @@ export const acceptTrade = async (req, res) => {
                 card.copy += 1;
                 user.cards.set(cardId, card);
             } else {
-                user.cards.set(cardId, { name: friendCard.name, img: friendCard.img, copy: 1 } );
+                user.cards.set(cardId, { name: friendCard.name, image: friendCard.image, copy: 1 } );
             }
         });
 

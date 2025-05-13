@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const cardTrade = new mongoose.Schema({
   id: {
-    type: Number,
+    type: String,
     required: true,
   },
   name: {

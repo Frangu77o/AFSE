@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // Schema della carta
 const cardSchema = new mongoose.Schema({
-  img: {
+  image: {
     type: String,
     required: true,
   },

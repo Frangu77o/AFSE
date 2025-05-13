@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: [16, 'Il salt deve essere lungo almeno 16 caratteri']
   },
-  favoriteSuperhero: {
+  favoriteCharacter: {
     type: String,
     required: false,
     default: 'Nessuno',
